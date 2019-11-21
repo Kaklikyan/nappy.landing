@@ -4,40 +4,41 @@ const browserSync = require('browser-sync').create();
 const imageMin = require('gulp-imagemin');
 const cssMinify = require('gulp-clean-css');
 const rename = require('gulp-rename');
-
-const style = () => {
-  return gulp.src('./scss/styles.scss')
-             .pipe(sass())
-             .pipe(gulp.dest('./css'))
-             .pipe(browserSync.stream())
-}
+const { series } = require('gulp');
 
 
-const imgMinify = () => {
-  gulp.src('images/*')
-  .pipe(imageMin())
-  .pipe(gulp.dest('img')) 
-}
+gulp.task('style', function(done) {
+  gulp.src('./scss/styles.scss')
+            .pipe(sass())
+            .pipe(gulp.dest('./css'))
+            .pipe(browserSync.stream())
+            done()
+});
 
-const cleanCss = () => {
+gulp.task('cleanCss', function(done) {
   gulp.src('css/styles.css')
   .pipe(cssMinify())
   .pipe(rename({
     suffix: '.min'
   }))
   .pipe(gulp.dest('css'))  
-}
+  done()
+})
 
-const watch = () => {
+gulp.task('imgMinify', function(done) {
+    gulp.src('images/*')
+    .pipe(imageMin())
+    .pipe(gulp.dest('img')) 
+    done()
+});
+
+gulp.task('server', function(done) {
   browserSync.init({
     server: {
       baseDir: './'
     }
   });
-  gulp.watch('./scss/styles.scss', style);
-  gulp.watch('./**/*.html').on('change', browserSync.reload);
-  gulp.watch('./css/styles.css', cleanCss);
-  gulp.watch('./images/*', imgMinify);
-}
+  done()
+})
 
-exports.watch = watch;
+gulp.task('default', series(['style', 'imgMinify', 'server']))
