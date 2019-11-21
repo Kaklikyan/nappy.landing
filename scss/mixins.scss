@@ -1,0 +1,66 @@
+@mixin text-dec-none {
+  text-decoration: none;
+}
+@mixin wantBtn {
+  color: #fff;
+        font-weight: 700;
+        margin-left: 30px;
+        border-radius: 20px;
+        border: 2px solid $boldpink;
+        padding: 10px 50px;
+        background-color: $boldpink;
+        transition: background-color 0.4s ease;
+        &:hover{
+          background-color: #fff;
+          border: 2px solid $boldpink;
+          color: $boldpink;
+        }
+}
+@mixin dashedShadow {
+  border: 2px dashed $pink;
+  box-shadow: 6px 8px 24px 2px #ccc;
+  border-radius: 4px;
+  margin-right: 80px;
+}
+
+@mixin fontStyle {
+  font-weight: 500;
+  font-size: 26px;
+  color: #333;
+}
+@mixin  arrowImg {
+  position: absolute;
+  width: 55%;
+  left: -9%;
+  top: 130%;
+}
+@mixin label {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  display: block;
+}
+@mixin inpSelect {
+  display: block;
+  margin: 10px 0;
+  padding: 12px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  &::placeholder{
+    color: #333333e0;
+    font-size: 14px;
+  }
+  &:focus::placeholder{
+    color: $colorBlue;
+  }
+  &:focus{
+    outline: none;
+    border: 1px solid $colorBlue;
+  }
+}
+
+@mixin displayFlex {
+  display: flex;
+  justify-content: center;
+}
